@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Incluimos Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <header class="title-header">
+        <div class="logo-container">
+            <img src="LOGO/LOGO.png" alt="Logo" class="header-logo">
+        </div>
+        <h1>Geovisor de Amenaza por Inundación en la Comuna 21</h1>
+    </header>
+
+    <div id="map"></div>
+    
+    <!-- Contenedor para el buscador -->
+    <div class="search-container">
+        <input type="text" id="search-box" placeholder="Buscar dirección en Cali...">
+        <button id="search-btn">Buscar</button>
+    </div>
+
+    <!-- Flecha norte -->
+    <div class="north-arrow">
+        <div class="arrow-container">
+            <div class="arrow">↑</div>
+            <div class="north-label">N</div>
+        </div>
+    </div>
+
+    <!-- Botón Panel de Capas -->
+    <div class="layers-panel-container">
+        <button id="layers-panel-btn" title="Panel de capas">
+            Panel de capas
+        </button>
+        <div id="layers-panel" class="layers-panel" style="display: none;">
+            <h3>Capas</h3>
+            <form id="layers-form">
+                <label><input type="checkbox" id="toggle-comuna21" checked> Comuna 21</label><br>
+                <label><input type="checkbox" id="toggle-comunas-aledanas" checked> Comunas aledañas</label><br>
+                <label><input type="checkbox" id="toggle-navarro" checked> Navarro</label><br>
+                <label><input type="checkbox" id="toggle-rio-cauca" checked> Río Cauca</label><br>
+                <label><input type="checkbox" id="toggle-wms-barrios" checked> Barrios</label><br>
+                <label><input type="checkbox" id="toggle-wms-construcciones" checked> Construcciones</label><br>
+                <label><input type="checkbox" id="toggle-wms-inundacion" checked> Inundación Fluvial</label><br>
+                <label><input type="checkbox" id="toggle-wms-manzanas" checked> Manzanas</label><br>
+                <label><input type="checkbox" id="toggle-wms-equip-educ" checked> Equipamientos Educativos</label><br>
+                <label><input type="checkbox" id="toggle-wms-equip-salud" checked> Equipamientos Salud</label><br>
+                <label><input type="checkbox" id="toggle-wms-sitios" checked> Sitios de Interés</label><br>
+                <label><input type="checkbox" id="toggle-wms-zonas-inundables" checked> Zonas Inundables</label><br>
+                <label><input type="checkbox" id="toggle-wms-puntos-ref" checked> Puntos de Referencia</label><br>
+                <label><input type="checkbox" id="toggle-wms-rutas" checked> Rutas</label><br>
+                <label><input type="checkbox" id="toggle-wms-sitm-estaciones" checked> SITM Estaciones</label><br>
+            </form>
+        </div>
+    </div>
+
+    <!-- Botón GPS -->
+    <div class="gps-container">
+        <button id="gps-btn" title="Obtener mi ubicación">
+            <span class="gps-icon">●</span>
+        </button>
+    </div>
+
+    <!-- Botón Home -->
+    <div class="home-container">
+        <button id="home-btn" title="Volver al inicio">
+            <span class="home-icon">⌂</span>
+        </button>
+    </div>
+
+    <!-- Botón Cambiar Mapa -->
+    <div class="map-switch-container">
+        <button id="map-switch-btn" title="Cambiar vista de mapa">
+            <span class="map-switch-icon">🗺️</span>
+        </button>
+    </div>
+
+    <!-- Botón Medir Distancia -->
+    <div class="measure-container">
+        <button id="measure-btn" title="Medir distancia">
+            <span class="measure-icon">📏</span>
+        </button>
+    </div>
+
+    <!-- Escala -->
+    <div class="scale-container">
+        <div class="scale-bar">
+            <div class="scale-line"></div>
+            <div class="scale-labels">
+                <span class="scale-start">0</span>
+                <span class="scale-end">500m</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cuadro de leyendas -->
+    <div class="legend-container">
+        <h3>Leyenda</h3>
+        <div id="legend-content"></div>
+    </div>
+
+    <!-- Contenedor de divisiones derechas -->
+    <div class="right-divisions-container">
+        <div class="right-division" id="division-1">
+            <div class="division-header">
+                <h3 class="division-title">Adicionar</h3>
+                <button class="minimize-btn" id="minimize-1" title="Minimizar">−</button>
+            </div>
+            <div class="division-content" id="content-1">
+                <div class="tabla-selector-container">
+                    <label for="tabla-selector"><b>Tabla:</b></label>
+                    <select id="tabla-selector">
+                        <option value="puntos_referencia">puntos_referencia</option>
+                        <option value="rutas">rutas</option>
+                        <option value="zonas_inundables">zonas_inundables</option>
+                    </select>
+                </div>
+                <div id="form-container" class="form-container" style="display: none;">
+                    <div class="form-field">
+                        <label for="descripcion">Descripción:</label>
+                        <input type="text" id="descripcion" placeholder="Ingrese descripción">
+                    </div>
+                    <div class="form-field">
+                        <label for="barrio">Barrio:</label>
+                        <input type="text" id="barrio" placeholder="Ingrese barrio">
+                    </div>
+                    <div class="form-field">
+                        <label for="estado">Estado:</label>
+                        <select id="estado">
+                            <option value="">Seleccione estado</option>
+                            <option value="Bueno">Bueno</option>
+                            <option value="Malo">Malo</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Colapsado">Colapsado</option>
+                        </select>
+                    </div>
+                    <div class="form-buttons">
+                        <button id="colocar-punto-btn" class="form-btn">Colocar Punto</button>
+                        <button id="adicionar-btn" class="form-btn">Adicionar</button>
+                    </div>
+                </div>
+                <div id="form-rutas-container" class="form-container" style="display: none;">
+                    <div class="form-field">
+                        <label for="descripcion-rutas">Descripción:</label>
+                        <input type="text" id="descripcion-rutas" placeholder="Ingrese descripción">
+                    </div>
+                    <div class="form-field">
+                        <label for="tipo-ruta">Tipo:</label>
+                        <select id="tipo-ruta">
+                            <option value="">Seleccione tipo</option>
+                            <option value="Vehicular">Vehicular</option>
+                            <option value="Peatonal">Peatonal</option>
+                            <option value="Embarcación">Embarcación</option>
+                        </select>
+                    </div>
+                    <div class="form-buttons">
+                        <button id="trace-ruta-btn" class="form-btn">Trace Ruta</button>
+                        <button id="adicionar-ruta-btn" class="form-btn">Adicionar</button>
+                    </div>
+                </div>
+                <div id="form-zonas-container" class="form-container" style="display: none;">
+                    <div class="form-field">
+                        <label for="descripcion-zonas">Descripción:</label>
+                        <input type="text" id="descripcion-zonas" placeholder="Ingrese descripción">
+                    </div>
+                    <div class="form-buttons">
+                        <button id="dibuje-poligono-btn" class="form-btn">Dibuje Poligono</button>
+                        <button id="adicionar-zona-btn" class="form-btn">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-division" id="division-2">
+            <div class="division-header">
+                <h3 class="division-title">Actualizar</h3>
+                <button class="minimize-btn" id="minimize-2" title="Minimizar">−</button>
+            </div>
+            <div class="division-content" id="content-2">
+                <div class="tabla-selector-container">
+                    <label for="tabla-selector-2"><b>Tabla:</b></label>
+                    <select id="tabla-selector-2">
+                        <option value="puntos_referencia">puntos_referencia</option>
+                        <option value="rutas">rutas</option>
+                        <option value="zonas_inundables">zonas_inundables</option>
+                    </select>
+                </div>
+                <div id="form-update-puntos" class="form-container" style="display: none;">
+                    <div class="form-field">
+                        <label for="id-update-puntos">ID:</label>
+                        <input type="text" id="id-update-puntos" placeholder="Ingrese ID">
+                    </div>
+                    <div class="form-field">
+                        <label for="descripcion-update-puntos">Descripción:</label>
+                        <input type="text" id="descripcion-update-puntos" placeholder="Ingrese descripción">
+                    </div>
+                    <div class="form-field">
+                        <label for="barrio-update-puntos">Barrio:</label>
+                        <input type="text" id="barrio-update-puntos" placeholder="Ingrese barrio">
+                    </div>
+                    <div class="form-field">
+                        <label for="estado-update-puntos">Estado:</label>
+                        <select id="estado-update-puntos">
+                            <option value="">Seleccione estado</option>
+                            <option value="Bueno">Bueno</option>
+                            <option value="Malo">Malo</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Colapsado">Colapsado</option>
+                        </select>
+                    </div>
+                    <div class="form-buttons">
+                        <button id="actualizar-punto-btn" class="form-btn">Actualizar Punto</button>
+                    </div>
+                </div>
+                <div id="form-update-rutas" class="form-container" style="display: none;">
+                    <div class="form-field">
+                        <label for="id-update-rutas">ID:</label>
+                        <input type="text" id="id-update-rutas" placeholder="Ingrese ID">
+                    </div>
+                    <div class="form-field">
+                        <label for="descripcion-update-rutas">Descripción:</label>
+                        <input type="text" id="descripcion-update-rutas" placeholder="Ingrese descripción">
+                    </div>
+                    <div class="form-field">
+                        <label for="tipo-update-ruta">Tipo:</label>
+                        <select id="tipo-update-ruta">
+                            <option value="">Seleccione tipo</option>
+                            <option value="Vehicular">Vehicular</option>
+                            <option value="Peatonal">Peatonal</option>
+                            <option value="Embarcación">Embarcación</option>
+                        </select>
+                    </div>
+                    <div class="form-buttons">
+                        <button id="actualizar-ruta-btn" class="form-btn">Actualizar Ruta</button>
+                    </div>
+                </div>
+                <div id="form-update-zonas" class="form-container" style="display: none;">
+                    <div class="form-field">
+                        <label for="id_zona">ID Zona:</label>
+                        <input type="text" id="id_zona" placeholder="Ingrese ID Zona">
+                    </div>
+                    <div class="form-field">
+                        <label for="descripcion-update-zonas">Descripción:</label>
+                        <input type="text" id="descripcion-update-zonas" placeholder="Ingrese descripción">
+                    </div>
+                    <div class="form-buttons">
+                        <button id="actualizar-zona-btn" class="form-btn">Actualizar Zona</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-division" id="division-3">
+            <div class="division-header">
+                <h3 class="division-title">Eliminar</h3>
+                <button class="minimize-btn" id="minimize-3" title="Minimizar">−</button>
+            </div>
+            <div class="division-content" id="content-3">
+                <div class="tabla-selector-container">
+                    <label for="tabla-selector-3"><b>Tabla:</b></label>
+                    <select id="tabla-selector-3">
+                        <option value="rutas">rutas</option>
+                        <option value="zonas_inundables">zonas_inundables</option>
+                        <option value="puntos_referencia">puntos_referencia</option>
+                    </select>
+                </div>
+                <div id="form-delete-rutas" class="form-container" style="display: none;">
+                    <div class="form-field">
+                        <label for="id-delete-rutas">ID:</label>
+                        <input type="text" id="id-delete-rutas" placeholder="Ingrese ID">
+                    </div>
+                    <div class="form-buttons">
+                        <button id="eliminar-ruta-btn" class="form-btn delete-btn">Eliminar Ruta</button>
+                    </div>
+                </div>
+                <div id="form-delete-zonas" class="form-container" style="display: none;">
+                    <div class="form-field">
+                        <label for="id_zona-delete">ID Zona:</label>
+                        <input type="text" id="id_zona-delete" placeholder="Ingrese ID Zona">
+                    </div>
+                    <div class="form-buttons">
+                        <button id="eliminar-zona-btn" class="form-btn delete-btn">Eliminar Zona</button>
+                    </div>
+                </div>
+                <div id="form-delete-puntos" class="form-container" style="display: none;">
+                    <div class="form-field">
+                        <label for="id-delete-puntos">ID:</label>
+                        <input type="text" id="id-delete-puntos" placeholder="Ingrese ID">
+                    </div>
+                    <div class="form-buttons">
+                        <button id="eliminar-punto-btn" class="form-btn delete-btn">Eliminar Punto</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-division" id="division-4">
+            <div class="division-header">
+                <h3 class="division-title">Descripción</h3>
+                <button class="minimize-btn" id="minimize-4" title="Minimizar">−</button>
+            </div>
+            <div class="division-content" id="content-4">
+                <div class="description-content">
+                    <p>Este geovisor permite analizar la amenaza por inundación en la Comuna 21 de Cali. Incluye herramientas para:</p>
+                    <ul>
+                        <li>Visualizar capas geográficas (barrios, construcciones, zonas inundables)</li>
+                        <li>Gestionar puntos de referencia, rutas y zonas inundables</li>
+                        <li>Medir distancias y ubicar direcciones</li>
+                        <li>Cambiar entre vista de mapa y satelital</li>
+                    </ul>
+                    <p>Desarrollado para el análisis de riesgos y planificación urbana.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript de Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src="script.js"></script>
+
+
+    
+</body>
+</html>

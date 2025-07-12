@@ -1,0 +1,960 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.title-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #2c3e50;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo-container {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001;
+}
+
+.header-logo {
+    height: 90px;
+    width: auto;
+    max-width: 250px;
+    object-fit: contain;
+}
+
+.title-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+#map {
+    width: 80%;
+    height: 100vh; /* 100% de la altura visible */
+    margin-top: 60px; /* Franja de 10px desde arriba */
+}
+
+/* Estilos para el control de zoom de Leaflet */
+.leaflet-control-zoom {
+    position: fixed !important;
+    top: 160px !important;
+    left: 20px !important;
+    z-index: 999 !important;
+}
+
+.leaflet-control-zoom a {
+    background-color: white !important;
+    border: none !important;
+    color: black !important;
+    font-weight: bold !important;
+    box-shadow: none !important;
+}
+
+.leaflet-control-zoom a:hover {
+    background-color: #f4f4f4 !important;
+}
+
+/* Estilos para el buscador */
+.search-container {
+    position: fixed;
+    top: 75px;
+    right: 320px;
+    z-index: 999;
+    display: flex;
+    gap: 5px;
+}
+
+#search-box {
+    padding: 8px 12px;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+    background-color: white;
+}
+
+#search-box:focus {
+    outline: none;
+    border-color: #2c3e50;
+    box-shadow: 0 0 5px rgba(44, 62, 80, 0.3);
+}
+
+#search-btn {
+    padding: 8px 16px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#search-btn:hover {
+    background-color: #34495e;
+}
+
+/* Estilos para la flecha norte */
+.north-arrow {
+    position: fixed;
+    top: 75px;
+    left: 20px;
+    z-index: 999;
+}
+
+.arrow-container {
+    background-color: white;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.arrow {
+    font-size: 40px;
+    font-weight: bold;
+    color: #2c3e50;
+    line-height: 1;
+}
+
+.north-label {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 2px;
+}
+
+/* Estilos para el botón GPS */
+.gps-container {
+    position: fixed;
+    bottom: 75px;
+    left: 20px;
+    z-index: 999;
+}
+
+#gps-btn {
+    background-color: white;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#gps-btn:hover {
+    background-color: #f4f4f4;
+    border-color: #2c3e50;
+}
+
+#gps-btn:active {
+    transform: scale(0.95);
+}
+
+#gps-btn.loading {
+    background-color: #f39c12;
+    color: white;
+}
+
+.gps-icon {
+    font-size: 24px;
+    display: block;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Estilos para el botón Home */
+.home-container {
+    position: fixed;
+    bottom: 130px;
+    left: 20px;
+    z-index: 999;
+}
+
+#home-btn {
+    background-color: white;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#home-btn:hover {
+    background-color: #f4f4f4;
+    border-color: #2c3e50;
+}
+
+#home-btn:active {
+    transform: scale(0.95);
+}
+
+.home-icon {
+    font-size: 20px;
+    display: block;
+}
+
+/* Estilos para el botón Cambiar Mapa */
+.map-switch-container {
+    position: fixed;
+    bottom: 185px;
+    left: 20px;
+    z-index: 999;
+}
+
+#map-switch-btn {
+    background-color: white;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#map-switch-btn:hover {
+    background-color: #f4f4f4;
+    border-color: #2c3e50;
+}
+
+#map-switch-btn:active {
+    transform: scale(0.95);
+}
+
+.map-switch-icon {
+    font-size: 20px;
+    display: block;
+}
+
+/* Estilos para el botón Medir */
+.measure-container {
+    position: fixed;
+    bottom: 240px;
+    left: 20px;
+    z-index: 999;
+}
+
+#measure-btn {
+    background-color: white;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#measure-btn:hover {
+    background-color: #f4f4f4;
+    border-color: #2c3e50;
+}
+
+#measure-btn:active {
+    transform: scale(0.95);
+}
+
+#measure-btn.active {
+    background-color: #e74c3c;
+    border-color: #c0392b;
+    color: white;
+    animation: pulse-measure 1.5s infinite;
+}
+
+@keyframes pulse-measure {
+    0% {
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+    }
+}
+
+.measure-icon {
+    font-size: 20px;
+    display: block;
+}
+
+/* Estilos para los marcadores de medición */
+.measure-marker {
+    background-color: #e74c3c !important;
+    border: 2px solid white !important;
+    border-radius: 50% !important;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    line-height: 16px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+
+/* Estilos para el marcador GPS */
+.gps-marker {
+    background: none !important;
+    border: none !important;
+}
+
+.gps-marker div {
+    font-size: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Estilos para la escala */
+.scale-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+}
+
+.scale-bar {
+    background-color: white;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 8px 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.scale-line {
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #2c3e50 50%, white 50%);
+    border: 1px solid #2c3e50;
+    margin-bottom: 5px;
+}
+
+.scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.scale-start {
+    margin-left: 0;
+}
+
+.scale-end {
+    margin-right: 0;
+}
+
+.geojson-label {
+    background: rgba(255,255,255,0.85);
+    border-radius: 6px;
+    padding: 2px 8px;
+    color: #222;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    pointer-events: none;
+    border: 1px solid #bbb;
+}
+
+/* Estilos para el botón Panel de Capas */
+.layers-panel-container {
+    position: fixed;
+    top: 125px;
+    right: 320px;
+    z-index: 1002;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#layers-panel-btn {
+    background-color: white;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#layers-panel-btn:hover {
+    background-color: #f4f4f4;
+    border-color: #2c3e50;
+}
+
+#layers-panel-btn:active {
+    transform: scale(0.95);
+}
+
+.layers-panel-icon {
+    font-size: 20px;
+    display: block;
+}
+
+.layers-panel {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 220px;
+    background: white;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 12px 10px 8px 10px;
+    z-index: 1003;
+    font-size: 12px;
+    display: block;
+}
+
+.layers-panel h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #2c3e50;
+    text-align: left;
+}
+
+#layers-form label {
+    display: block;
+    margin-bottom: 2px;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+}
+
+#layers-form input[type="checkbox"] {
+    margin-right: 6px;
+    accent-color: #2c3e50;
+}
+
+.legend-container {
+    position: fixed;
+    top: 175px;
+    right: 320px;
+    width: 200px;
+    background: white;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 14px 16px 10px 16px;
+    z-index: 1001;
+    font-size: 13px;
+    color: #222;
+}
+
+.legend-container h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #2c3e50;
+    text-align: left;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px;
+    gap: 8px;
+}
+
+.legend-symbol {
+    width: 28px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid #bbb;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.legend-line {
+    width: 28px;
+    height: 4px;
+    border-radius: 2px;
+    margin-right: 6px;
+    display: inline-block;
+}
+
+.right-divisions-container {
+    position: fixed;
+    top: 75px;
+    right: 20px;
+    width: 250px;
+    height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 900;
+    pointer-events: none; /* No bloquea interacción con otros elementos */
+    gap: 8px;
+}
+
+.right-division {
+    flex: 1 1 0;
+    background: rgba(44,62,80,0.06);
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    color: #2c3e50;
+    pointer-events: auto;
+    min-height: 60px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Estado inicial: todas las divisiones colapsadas por defecto */
+.right-division {
+    flex: 0 0 60px;
+    min-height: 60px;
+    max-height: 60px;
+}
+
+.right-division .division-content {
+    display: none;
+}
+
+.right-division .minimize-btn {
+    transform: rotate(180deg);
+}
+
+.right-division .minimize-btn {
+    color: #2c3e50;
+}
+
+/* Estado expandido */
+.right-division:not(.collapsed) {
+    flex: 1 1 auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-color: #3498db;
+    border-left: 4px solid #3498db;
+    max-height: none;
+}
+
+.right-division:not(.collapsed) .division-content {
+    display: block;
+}
+
+.right-division:not(.collapsed) .minimize-btn {
+    transform: rotate(0deg);
+}
+
+.right-division:not(.collapsed) .division-header {
+    background: rgba(52,152,219,0.15);
+    border-bottom-color: #3498db;
+    border-left: 4px solid #3498db;
+    margin-left: -4px;
+    padding-left: 16px;
+}
+
+.right-division.collapsed {
+    flex: 0 0 60px;
+    min-height: 60px;
+    max-height: 60px;
+}
+
+.division-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: rgba(44,62,80,0.1);
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 44px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.division-header:hover {
+    background: rgba(44,62,80,0.15);
+}
+
+.division-content {
+    flex: 1;
+    padding: 12px 8px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.right-division.collapsed .division-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.minimize-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    line-height: 1;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.minimize-btn:hover {
+    background-color: rgba(44,62,80,0.2);
+    color: #34495e;
+}
+
+.minimize-btn:active {
+    transform: scale(0.9);
+}
+
+.minimize-btn.maximize {
+    transform: rotate(180deg);
+}
+
+.right-division:not(.collapsed) .minimize-btn {
+    color: #3498db;
+}
+
+.right-division:not(.collapsed) .minimize-btn:hover {
+    background-color: rgba(52,152,219,0.2);
+    color: #2980b9;
+}
+
+.division-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: left;
+    flex: 1;
+}
+
+.description-content {
+    width: 100%;
+    font-size: 11px;
+    line-height: 1.4;
+    color: #2c3e50;
+    text-align: left;
+}
+
+.description-content p {
+    margin: 0 0 8px 0;
+}
+
+.description-content ul {
+    margin: 8px 0;
+    padding-left: 16px;
+}
+
+.description-content li {
+    margin-bottom: 4px;
+}
+
+.tabla-selector-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 0;
+}
+
+.form-container {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.form-field {
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-field label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.form-field input,
+.form-field select {
+    padding: 6px 8px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+.form-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.form-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#colocar-punto-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+#colocar-punto-btn:hover {
+    background-color: #2980b9;
+}
+
+#trace-ruta-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+#trace-ruta-btn:hover {
+    background-color: #2980b9;
+}
+
+#dibuje-poligono-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+#dibuje-poligono-btn:hover {
+    background-color: #2980b9;
+}
+
+#adicionar-btn {
+    background-color: #27ae60;
+    color: white;
+}
+
+#adicionar-btn:hover {
+    background-color: #229954;
+}
+
+#adicionar-ruta-btn {
+    background-color: #27ae60;
+    color: white;
+}
+
+#adicionar-ruta-btn:hover {
+    background-color: #229954;
+}
+
+#adicionar-zona-btn {
+    background-color: #27ae60;
+    color: white;
+}
+
+#adicionar-zona-btn:hover {
+    background-color: #229954;
+}
+
+#actualizar-punto-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+#actualizar-punto-btn:hover {
+    background-color: #2980b9;
+}
+
+#actualizar-ruta-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+#actualizar-ruta-btn:hover {
+    background-color: #2980b9;
+}
+
+#actualizar-zona-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+#actualizar-zona-btn:hover {
+    background-color: #2980b9;
+}
+
+.delete-btn {
+    background-color: #e74c3c !important;
+    color: white !important;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b !important;
+}
+
+.delete-btn:active {
+    background-color: #a93226 !important;
+}
+
+.form-btn:active {
+    transform: scale(0.95);
+}
+
+#colocar-punto-btn.active {
+    background-color: #e74c3c;
+    animation: pulse-btn 1.5s infinite;
+}
+
+#trace-ruta-btn.active {
+    background-color: #e74c3c;
+    animation: pulse-btn 1.5s infinite;
+}
+
+#dibuje-poligono-btn.active {
+    background-color: #e74c3c;
+    animation: pulse-btn 1.5s infinite;
+}
+
+@keyframes pulse-btn {
+    0% {
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+    }
+}
+
+.route-marker {
+    background-color: #e67e22 !important;
+    border: 2px solid white !important;
+    border-radius: 50% !important;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    line-height: 16px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+
+.polygon-marker {
+    background-color: #16a085 !important;
+    border: 2px solid white !important;
+    border-radius: 50% !important;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+    text-align: center !important;
+    line-height: 16px !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+
+.custom-point-marker {
+    background: none !important;
+    border: none !important;
+}
+
+.custom-point-marker div {
+    font-size: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+#tabla-selector {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #bbb;
+    font-size: 13px;
+}
+
+#tabla-content {
+    width: 100%;
+    overflow-x: auto;
+    font-size: 12px;
+}
+
+#tabla-content table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+#tabla-content th, #tabla-content td {
+    border: 1px solid #ccc;
+    padding: 4px 6px;
+    text-align: left;
+}
+#tabla-content th {
+    background: #f4f4f4;
+    font-weight: bold;
+}
