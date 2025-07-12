@@ -1,19 +1,19 @@
 # Geovisor de Amenaza por Inundación - Comuna 21, Cali
 
-## 📋 Descripción del Proyecto
+##  Descripción del Proyecto
 
 Este geovisor web permite analizar y visualizar la amenaza por inundación en la Comuna 21 de Santiago de Cali, Colombia. La aplicación proporciona herramientas interactivas para la gestión de datos geográficos, medición de distancias, búsqueda de direcciones y visualización de múltiples capas cartográficas.
 
-## 🎯 Características Principales
+## Características Principales
 
-### 🗺️ Visualización de Mapas
+###  Visualización de Mapas
 - **Mapa Base**: OpenStreetMap con vista satelital opcional
 - **Capas GeoJSON**: Comuna 21, comunas aledañas, Navarro, Río Cauca
 - **Capas WMS**: Barrios, construcciones, inundación fluvial, manzanas
 - **Capas WFS**: Equipamientos educativos, salud, sitios de interés, zonas inundables, puntos de referencia, rutas
 - **SITM Estaciones**: Información del sistema de transporte masivo
 
-### 🛠️ Herramientas Interactivas
+###  Herramientas Interactivas
 - **Búsqueda de Direcciones**: Localización de direcciones en Cali
 - **GPS**: Obtención de ubicación actual del usuario
 - **Medición de Distancias**: Herramienta para medir distancias en el mapa
@@ -21,13 +21,13 @@ Este geovisor web permite analizar y visualizar la amenaza por inundación en la
 - **Escala Dinámica**: Escala que se adapta al nivel de zoom
 - **Flecha Norte**: Indicador de orientación
 
-### 📊 Gestión de Datos
+###  Gestión de Datos
 - **Adicionar**: Puntos de referencia, rutas y zonas inundables
 - **Actualizar**: Modificación de registros existentes
 - **Eliminar**: Eliminación de elementos de la base de datos
 - **Formularios Dinámicos**: Interfaz adaptativa según el tipo de dato
 
-## 🏗️ Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 GEOVISOR/
@@ -44,7 +44,7 @@ GEOVISOR/
     └── LOGO.png            # Logo institucional
 ```
 
-## 🚀 Instalación y Uso
+##  Instalación y Uso
 
 ### Requisitos Previos
 - Navegador web moderno (Chrome, Firefox, Safari, Edge)
@@ -61,7 +61,7 @@ GEOVISOR/
 3. **Capas**: Usa el panel de capas para activar/desactivar información
 4. **Herramientas**: Utiliza los botones laterales para diferentes funciones
 
-## 📁 Descripción de Archivos
+##  Descripción de Archivos
 
 ### `index.html`
 - Estructura principal de la aplicación web
@@ -91,7 +91,7 @@ Contiene archivos GeoJSON locales:
 ### Carpeta `LOGO/`
 - **LOGO.png**: Logo institucional ubicado en el header
 
-## 🗺️ Servicios de Mapas Utilizados
+##  Servicios de Mapas Utilizados
 
 ### Servicios WMS (Web Map Service)
 - **TALLER3sig3**: `http://44.198.27.212:8080/geoserver/TALLER3sig3/wms`
@@ -108,7 +108,7 @@ Contiene archivos GeoJSON locales:
 - **OpenStreetMap**: Mapa base principal
 - **Esri World Imagery**: Vista satelital
 
-## 🎨 Características de Diseño
+##  Características de Diseño
 
 ### Paleta de Colores
 - **Primario**: #2c3e50 (Azul oscuro)
@@ -127,7 +127,7 @@ Contiene archivos GeoJSON locales:
 - Panel lateral derecho con herramientas
 - Controles flotantes para funcionalidades específicas
 
-## 🔧 Funcionalidades Técnicas
+##  Funcionalidades Técnicas
 
 ### Gestión de Capas
 - Control individual de visibilidad
@@ -153,21 +153,21 @@ Contiene archivos GeoJSON locales:
 - Marcadores personalizados
 - Información de precisión
 
-## 📱 Responsividad
+##  Responsividad
 
 La aplicación está diseñada para funcionar en:
 - **Desktop**: Pantallas grandes con todas las funcionalidades
 - **Tablet**: Adaptación de controles y layout
 - **Móvil**: Optimización para pantallas pequeñas
 
-## 🔒 Consideraciones de Seguridad
+##  Consideraciones de Seguridad
 
 - Validación de entrada en formularios
 - Sanitización de datos de búsqueda
 - Manejo de errores en servicios externos
 - Confirmación para acciones destructivas
 
-## 🐛 Solución de Problemas
+##  Solución de Problemas
 
 ### Problemas Comunes
 1. **Capas no cargan**: Verificar conexión a internet y servicios WMS/WFS
@@ -180,7 +180,7 @@ La aplicación está diseñada para funcionar en:
 - **Dispositivos**: Desktop, tablet, móvil
 - **Sistemas**: Windows, macOS, Linux, Android, iOS
 
-## 📈 Futuras Mejoras
+##  Futuras Mejoras
 
 - [ ] Integración con base de datos real
 - [ ] Exportación de datos en diferentes formatos
@@ -190,7 +190,7 @@ La aplicación está diseñada para funcionar en:
 - [ ] Historial de cambios
 - [ ] Modo offline para capas básicas
 
-## 👥 Contribución
+##  Contribución
 
 Para contribuir al proyecto:
 1. Fork el repositorio
@@ -198,11 +198,11 @@ Para contribuir al proyecto:
 3. Realiza tus cambios
 4. Envía un pull request
 
-## 📄 Licencia
+##  Licencia
 
 Este proyecto está desarrollado para fines educativos y de investigación en el contexto del análisis de amenazas por inundación en Santiago de Cali.
 
-## 📞 Contacto
+##  Contacto
 
 Para más información sobre este geovisor, contacta al equipo de desarrollo del proyecto SIG3.
 
